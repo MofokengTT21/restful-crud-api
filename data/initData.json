@@ -1,0 +1,206 @@
+[ 
+  {
+    "color": "white",
+    "make": "Volkswagen",
+    "model": "Polo",
+    "reg_number": "CY 25661"
+  },  
+  {
+    "color": "silver",
+    "make": "Mercedes benz",
+    "model": "C-Class",
+    "reg_number": "CL 40003"
+  },
+  {
+    "color": "black",
+    "make": "BMW",
+    "model": "X5",
+    "reg_number": "CA 20001"
+  },  
+  {
+    "color": "red",
+    "make": "Toyota",
+    "model": "Tazz",
+    "reg_number": "CY 16875"
+  },    
+  {
+    "color": "orange",
+    "make": "Ford",
+    "model": "EcoSport",
+    "reg_number": "CL 11318"
+  },  
+  {
+    "color": "grey",
+    "make": "Audi",
+    "model": "A4",
+    "reg_number": "CY 30002"
+  },  
+  {
+    "color": "orange",
+    "make": "Nissan",
+    "model": "Juke",
+    "reg_number": "CK 32655"
+  },  
+  {
+    "color": "white",
+    "make": "Nissan",
+    "model": "Micra",
+    "reg_number": "CJ 16103"
+  },  
+  {
+    "color": "orange",
+    "make": "Ford",
+    "model": "Fiesta",
+    "reg_number": "CL 77790"
+  },  
+  {
+    "color": "white",
+    "make": "Volkswagen",
+    "model": "Polo",
+    "reg_number": "CY 25661"
+  },  
+  {
+    "color": "blue",
+    "make": "Toyota",
+    "model": "Yaris",
+    "reg_number": "CL 9538"
+  },  
+  {
+    "color": "white",
+    "make": "Chevrolet",
+    "model": "Cruze",
+    "reg_number": "CY 35475"
+  },  
+  {
+    "color": "white",
+    "make": "Toyota",
+    "model": "Corolla",
+    "reg_number": "CY 54886"
+  },  
+  {
+    "color": "orange",
+    "make": "Toyota",
+    "model": "Tazz",
+    "reg_number": "CA 46137"
+  },  
+  {
+    "color": "blue",
+    "make": "Ford",
+    "model": "Focus",
+    "reg_number": "CF 75586"
+  },  
+  {
+    "color": "purple",
+    "make": "Kia",
+    "model": "Sportage",
+    "reg_number": "CF 60005"
+  },  
+  {
+    "color": "blue",
+    "make": "Volkswagen",
+    "model": "Jetta",
+    "reg_number": "CA 46977"
+  },  
+  {
+    "color": "red",
+    "make": "Volkswagen",
+    "model": "Touran",
+    "reg_number": "CA 94890"
+  },  
+  {
+    "color": "orange",
+    "make": "Ford",
+    "model": "Ranger",
+    "reg_number": "CK 22692"
+  },  
+  {
+    "color": "blue",
+    "make": "Toyota",
+    "model": "Corolla",
+    "reg_number": "CL 76173"
+  },  
+  {
+    "color": "white",
+    "make": "Nissan",
+    "model": "Juke",
+    "reg_number": "CF 62002"
+  },  
+  {
+    "color": "green",
+    "make": "Hyundai",
+    "model": "Elantra",
+    "reg_number": "CJ 50004"
+  },  
+  {
+    "color": "beige",
+    "make": "Mazda",
+    "model": "CX-5",
+    "reg_number": "CL 90008"
+  },  
+  {
+    "color": "orange",
+    "make": "Toyota",
+    "model": "Corolla",
+    "reg_number": "CK 41166"
+  },  
+  {
+    "color": "red",
+    "make": "Toyota",
+    "model": "Corolla",
+    "reg_number": "CF 33543"
+  },  
+  {
+    "color": "white",
+    "make": "Ford",
+    "model": "Ranger",
+    "reg_number": "CF 75599"
+  },  
+  {
+    "color": "orange",
+    "make": "Toyota",
+    "model": "Hilux",
+    "reg_number": "CY 52435"
+  },  
+  {
+    "color": "red",
+    "make": "Toyota",
+    "model": "Tazz",
+    "reg_number": "CL 38315"
+  },  
+  {
+    "color": "orange",
+    "make": "Nissan",
+    "model": "Juke",
+    "reg_number": "CL 42789"
+  },  
+  {
+    "color": "white",
+    "make": "Volkswagen",
+    "model": "Polo",
+    "reg_number": "CL 61045"
+  },  
+  {
+    "color": "yellow",
+    "make": "Honda",
+    "model": "Civic",
+    "reg_number": "CA 70006"
+  },  
+  {
+    "color": "white",
+    "make": "Toyota",
+    "model": "Hilux",
+    "reg_number": "CJ 16455"
+  },  
+  {
+    "color": "blue",
+    "make": "Ford",
+    "model": "Ranger",
+    "reg_number": "CA 77852"
+  },  
+  {
+    "color": "orange",
+    "make": "Toyota",
+    "model": "Tazz",
+    "reg_number": "CY 82252"
+  }
+]

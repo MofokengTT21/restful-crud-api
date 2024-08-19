@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monica | Inventory Management</title>
+  <link rel="icon" href="/img/logo-short.png" type="image/png">
+  <!-- Add Alpine.js and Axios -->
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ntc/1.0.0/ntc.min.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+</head>
+
+<body class="bg-gray-100">
+  <header class="p-5 lg:p-8 bg-white shadow-sm mb-8 sm:mb-0">
+    <img class="h-16 xl:h-20" src="/img/logo.png" alt="">
+  </header>
+  <div x-data="carApp" x-init="init" class="container mx-auto  sm:p-8">
+    <div class="bg-white mb-8 rounded-xl">
+      <h1 class="text-gray-700 text-3xl font-bold py-12 px-1 text-center">Car Inventory Management</h1>
+    </div>
+
+    <!-- Donut Chart -->
+    <div class="bg-white p-6 sm:rounded-xl mb-8">
+      <h2 class="text-2xl font-semibold  text-gray-700">Brand Distribution</h2>
+      <div class="max-w-sm m-auto">
+        <canvas id="carPieChart" width="600" height="400"></canvas>
+      </div>
+    </div>
+    <!-- Add Car Form -->
+    <div x-show="isAdding" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <form @submit.prevent="addCar" class="mb-8">
+        <div class="bg-white p-6 rounded-xl w-96 md:w-96">
+          <div>
+            <h2 class="text-xl font-bold mb-4">Add New Car</h2>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700">Make:</label>
+            <input type="text" x-model="newCar.make" class="capitalize w-full p-2 border rounded" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700">Model:</label>
+            <input type="text" x-model="newCar.model" class="capitalize w-full p-2 border rounded" required>
+          </div>
+          <div class="mb-4">
+            <label class=" block text-gray-700">Color:</label>
+            <div class="flex items-center h-full">
+              <input type="text" x-model="newCar.color" class="w-full p-2 border rounded" required
+                placeholder="Type /or pick a color">
+              <input type="color" x-model="newCar.color"
+                style="outline:none; padding:0; background-color:transparent; width:43px; height:2.5rem; border-radius: 15px;"
+                class="ml-2">
+            </div>
+
+          </div>
+          <label class="block text-gray-700 mb-2"> Registration number</label>
+          <div class="flex items-center gap-2">
+            <div class="mb-4">
+              <select x-model="newCar.townCode" class="p-2 border rounded" required>
+                <option value="">Select a town code</option>
+                <option value="CJ">CJ (Paarl)</option>
+                <option value="CY">CY (Bellville)</option>
+                <option value="CL">CL (Stellenbosch)</option>
+                <option value="CK">CK (Malmesbury)</option>
+                <option value="CA">CA (Cape Town)</option>
+                <option value="CF">CF (Kuilsriver)</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <input type="text" x-model="newCar.inputedByUser" class="capitalize w-full p-2 border rounded" required>
+            </div>
+          </div>
+          <div class="flex justify-end gap-2">
+            <button type="submit" class="font-semibold bg-black text-white px-4 py-3 rounded-xl">Add Car</button>
+            <button @click="isAdding = false"=false"
+              class="font-semibold bg-gray-200 text-gray-800 px-4 py-3 rounded-xl">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+    <!-- Car List -->
+    <div class="bg-white p-4 sm:p-6 sm:rounded-xl">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl pl-2 sm:pl-0 font-semibold text-gray-700">Cars</h2>
+        <button @click="isAdding = true"
+          class="font-semibold bg-black text-white px-2 sm:px-3 py-2 sm:py-3 rounded-xl flex items-center">
+          <i class="fas fa-plus mr-2"></i>
+          Add Car
+        </button>
+
+      </div>
+      <template x-if="cars.length === 0">
+        <p class="text-gray-600">No cars available</p>
+      </template>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white text-sm sm:text-base">
+          <thead>
+            <tr class="border-b">
+              <th class="py-2 sm:py-3 px-2 sm:px-4 text-left text-gray-700">Car</th>
+              <th class="py-2 sm:py-3 px-2 sm:px-4 text-center sm:text-left text-gray-700">Color</th>
+              <th class="py-2 sm:py-3 px-2 sm:px-4 text-left text-gray-700">Reg Number</th>
+              <th class="py-2 sm:py-3 px-2 sm:px-4 text-right text-gray-700">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="car in cars" :key="car._id">
+              <tr class="even:bg-gray-50 font-semibold capitalize">
+                <td class="py-2 sm:py-3 px-2 sm:px-4 flex items-center gap-3">
+                  <div class="rounded-xl w-12 flex-shrink-0">
+                    <img
+                      :src="'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/master/logos/thumb/' + car.make.toLowerCase().replace(/ /g, '-') + '.png'"
+                      alt="Car image" class="w-full h-full">
+                  </div>
+                  <span class="font-semibold" x-text="`${car.make} ${car.model}`"></span>
+                </td>
+
+                <td class="py-2 sm:py-3 px-2 sm:px-4">
+                  <div class="flex justify-center items-center gap-1 sm:justify-start">
+                    <div class="p-2 bg-gray-200 rounded border"
+                      x-bind:style="{ backgroundColor: car.color.toLowerCase().replace(/ /g, '') }"></div>
+
+                    <div class="hidden sm:block" x-text="car.color"></div>
+                  </div>
+                </td>
+                <td class="py-2 sm:py-3 px-2 sm:px-4" x-text="car.reg_number"></td>
+                <td class="py-2 sm:py-3 px-2 sm:px-4 flex flex-shrink-0 gap-1 sm:gap-3 justify-end">
+                  <button @click="editCar(car)"
+                    class="font-semibold bg-gray-200 px-1 py-[3px] rounded-md text-gray-500 hover:bg-gray-300 transition">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button @click="deleteCar(car._id)" class="text-gray-500 hover:text-gray-800 transition">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+
+
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Edit Car Modal -->
+    <div x-show="isEditing" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div class="w-96 md:w-96 bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-xl font-bold mb-4">Edit Car</h2>
+        <div class="mb-4">
+          <label class="block text-gray-700">Make:</label>
+          <input type="text" x-model="currentCar.make" class="capitalize w-full p-2 border rounded">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700">Model:</label>
+          <input type="text" x-model="currentCar.model" class="capitalize w-full p-2 border rounded">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700">Color:</label>
+          <div class="flex items-center h-full">
+            <input type="text" x-model="currentCar.color" class="w-full p-2 border rounded" required
+              placeholder="Type /or pick a color">
+            <input type="color" x-model="currentCar.color"
+              style="outline:none; padding:0; background-color:transparent; width:43px; height:2.5rem; border-radius: 15px;"
+              class="ml-2">
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700">Registration Number:</label>
+          <input type="text" x-model="currentCar.reg_number" class="capitalize w-full p-2 border rounded">
+        </div>
+        <div class="flex justify-end gap-2">
+          <button @click="updateCar" class="font-semibold bg-purple-600 text-white px-4 py-3 rounded-xl">Update</button>
+          <button @click="isEditing = false"
+            class="font-semibold bg-gray-200 text-gray-800 px-4 py-3 rounded-xl">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+  <script src="/public/carApp.js"></script>
+</body>
+
+</html>
