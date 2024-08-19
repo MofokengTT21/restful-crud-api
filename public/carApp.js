@@ -26,9 +26,7 @@ document.addEventListener('alpine:init', () => {
           this.newCar = { color: '', make: '', model: '', reg_number: '', townCode: '', inputedByUser: '' };
           this.renderChart();
           this.isAdding = false;
-          setTimeout(() => {
-            this.importBulkData();
-          }, 180000);
+          this.importBulkData();
         })
         .catch(error => console.error("Error adding car!", error));
     },
@@ -38,9 +36,7 @@ document.addEventListener('alpine:init', () => {
         .then(() => {
           this.cars = this.cars.filter(car => car._id !== id);
           this.renderChart();
-          setTimeout(() => {
-            this.importBulkData();
-          }, 180000);
+          this.importBulkData();
         })
         .catch(error => console.error("Error deleting car!", error));
     },
@@ -48,7 +44,6 @@ document.addEventListener('alpine:init', () => {
     editCar(car) {
       this.currentCar = { ...car };
       this.isEditing = true;
-      console.log("dsds", this.currentCar);
     },
     
     updateCar() {
@@ -61,20 +56,20 @@ document.addEventListener('alpine:init', () => {
           this.isEditing = false;
           this.currentCar = {};  
           this.renderChart(); 
-          setTimeout(() => {
-            this.importBulkData();
-          }, 180000); 
+          this.importBulkData();
         })
         .catch(error => console.error("Error updating car!", error));
     },
     
     importBulkData() {
-      axios.post(`${this.apiUrl}/import-bulk`)
-        .then(response => {
-          console.log(response.data.message);
-          this.fetchCars();
-        })
-        .catch(error => console.error("Error importing bulk data!", error));
+      setTimeout(() => {
+        axios.post(`${this.apiUrl}/import-bulk`)
+          .then(response => {
+            console.log(response.data.message);
+            this.fetchCars();
+          })
+          .catch(error => console.error("Error importing bulk data!", error));
+      }, 120000); // 2 minutes delay
     },
     
     init() {
@@ -101,7 +96,7 @@ document.addEventListener('alpine:init', () => {
       const brandLabels = Object.keys(brandCounts);
       const brandData = Object.values(brandCounts);
       const neutralAccentColors = [
-        '#D3D3D3', '#A9A9A9', '#696969', '#FF1493', 
+        '#000000', '#A9A9A9', '#696969', '#FF1493', 
         '#ADD8E6', '#98FF98', '#008080', '#FFFFF0', 
         '#6A5ACD', '#AFEEEE', '#B0C4DE', '#C0C0C0', 
         '#36454F', '#C4C3D0', '#696969'

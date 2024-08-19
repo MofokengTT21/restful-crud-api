@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Monica | Inventory Management</title>
-  <link rel="icon" href="img/logo-short.png"image/png">
+  <link rel="icon" href="img/logo-short.png">
   <!-- Alpine.js and Axios -->
   <script src="//unpkg.com/alpinejs" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -20,7 +20,7 @@
 
 <body class="bg-gray-100">
   <header class="p-5 lg:p-8 bg-white shadow-sm mb-8 sm:mb-0">
-    <img class="h-16 xl:h-20" src="img/logo.png" alt="">
+    <img class="w-full sm:w-auto sm:h-16 xl:h-20" src="img/logo.png" alt="">
   </header>
   <div x-data="carApp" x-init="init" class="container mx-auto  sm:p-8">
     <div class="bg-white mb-8 rounded-xl">
@@ -78,9 +78,9 @@
             </div>
           </div>
           <div class="flex justify-end gap-2">
-            <button type="submit" class="font-semibold bg-black text-white px-4 py-3 rounded-xl">Add Car</button>
+            <button type="submit" class="font-semibold bg-black text-white px-4 py-3 rounded-lg">Add Car</button>
             <button @click="isAdding = false"=false"
-              class="font-semibold bg-gray-200 text-gray-800 px-4 py-3 rounded-xl">Cancel</button>
+              class="font-semibold bg-gray-200 text-gray-800 px-4 py-3 rounded-lg">Cancel</button>
           </div>
         </div>
       </form>
@@ -92,7 +92,7 @@
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-2xl pl-2 sm:pl-0 font-semibold text-gray-700">Cars</h2>
         <button @click="isAdding = true"
-          class="font-semibold bg-black text-white px-2 sm:px-3 py-2 sm:py-3 rounded-xl flex items-center">
+          class="font-semibold bg-black text-white px-2 sm:px-3 py-2 sm:py-3 rounded-lg flex items-center">
           <i class="fas fa-plus mr-2"></i>
           Add Car
         </button>
@@ -177,9 +177,9 @@
           <input type="text" x-model="currentCar.reg_number" class="capitalize w-full p-2 border rounded">
         </div>
         <div class="flex justify-end gap-2">
-          <button @click="updateCar" class="font-semibold bg-purple-600 text-white px-4 py-3 rounded-xl">Update</button>
+          <button @click="updateCar" class="font-semibold bg-black text-white px-4 py-3 rounded-lg">Update</button>
           <button @click="isEditing = false"
-            class="font-semibold bg-gray-200 text-gray-800 px-4 py-3 rounded-xl">Cancel</button>
+            class="font-semibold bg-gray-200 text-gray-800 px-4 py-3 rounded-lg">Cancel</button>
         </div>
       </div>
     </div>
