@@ -9,6 +9,20 @@ document.addEventListener('alpine:init', () => {
         ? 'http://localhost:3000' 
         : 'https://monica-car-inventory.vercel.app',
 
+    importBulkDataTimeout: null, 
+
+    setImportBulkDataTimeout() {
+        // Clear any existing timeout
+        if (this.importBulkDataTimeout) {
+            clearTimeout(this.importBulkDataTimeout);
+        }
+
+        // Set a new timeout
+        this.importBulkDataTimeout = setTimeout(() => {
+            this.importBulkData();
+        }, 3000);
+    },
+
     fetchCars() {
       axios.get(`${this.apiUrl}/cars`)
         .then(response => {
@@ -26,21 +40,25 @@ document.addEventListener('alpine:init', () => {
           this.newCar = { color: '', make: '', model: '', reg_number: '', townCode: '', inputedByUser: '' };
           this.renderChart();
           this.isAdding = false;
-          this.importBulkData();
+          
+          // Use the timeout method
+          this.setImportBulkDataTimeout();
         })
         .catch(error => console.error("Error adding car!", error));
     },
     
     deleteCar(id) {
-      axios.delete(`${this.apiUrl}/cars/${id}`)
-        .then(() => {
-          this.cars = this.cars.filter(car => car._id !== id);
-          this.renderChart();
-          this.importBulkData();
-        })
-        .catch(error => console.error("Error deleting car!", error));
-    },
+        axios.delete(`${this.apiUrl}/cars/${id}`)
+          .then(() => {
+            this.cars = this.cars.filter(car => car._id !== id);
+            this.renderChart();
 
+            // Use the timeout method
+            this.setImportBulkDataTimeout();
+          })
+          .catch(error => console.error("Error deleting car!", error));
+    },
+    
     editCar(car) {
       this.currentCar = { ...car };
       this.isEditing = true;
@@ -56,20 +74,20 @@ document.addEventListener('alpine:init', () => {
           this.isEditing = false;
           this.currentCar = {};  
           this.renderChart(); 
-          this.importBulkData();
+          
+          // Use the timeout method
+          this.setImportBulkDataTimeout();
         })
         .catch(error => console.error("Error updating car!", error));
     },
     
     importBulkData() {
-      setTimeout(() => {
         axios.post(`${this.apiUrl}/import-bulk`)
           .then(response => {
             console.log(response.data.message);
             this.fetchCars();
           })
-          .catch(error => console.error("Error importing bulk data!", error));
-      }, 120000); // 2 minutes delay
+          .catch(error => console.error("Error importing bulk data!", error)); 
     },
     
     init() {

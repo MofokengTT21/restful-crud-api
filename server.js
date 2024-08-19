@@ -61,7 +61,9 @@ app.get("/cars/:id", async (req, res) => {
 });
 
 // Import [BULK]
-app.post("/import-bulk", async (req, res) => {
+let importBulkDataTimeout = null;
+
+async function importBulkData() {
   try {
     const filePath = path.join(__dirname, ".", "data", "initData.json");
     const fileData = fs.readFileSync(filePath, "utf-8");
@@ -70,9 +72,28 @@ app.post("/import-bulk", async (req, res) => {
     await Car.deleteMany();
     await Car.insertMany(data);
 
-    res.status(200).json({ message: "Data inserted successfully" });
+    console.log("Data inserted successfully");
   } catch (error) {
     console.error("Error:", error);
+  }
+}
+
+// Trigger importBulkData with reset timer
+app.post("/import-bulk", async (req, res) => {
+  try {
+    // Clear any existing timeout
+    if (importBulkDataTimeout) {
+      clearTimeout(importBulkDataTimeout);
+    }
+
+    // Set a new timeout
+    importBulkDataTimeout = setTimeout(async () => {
+      await importBulkData();
+    }, 120000); // 2 minutes delay
+
+    res.status(200).json({ message: "Import scheduled" });
+  } catch (error) {
+    console.error("Error scheduling import:", error);
     res.status(500).json({ message: error.message });
   }
 });
