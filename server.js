@@ -16,6 +16,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Routes
 app.get("/blog", (req, res) => {
   res.send("Hello Blog, My name is Tshepo");
