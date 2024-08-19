@@ -65,7 +65,7 @@ let importBulkDataTimeout = null;
 
 async function importBulkData() {
   try {
-    const filePath = path.join(__dirname, ".", "data", "initData.json");
+    const filePath = path.join(process.cwd(), "data", "initData.json");
     const fileData = fs.readFileSync(filePath, "utf-8");
     const data = JSON.parse(fileData);
 
