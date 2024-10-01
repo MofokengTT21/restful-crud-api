@@ -1,4 +1,3 @@
-```md
 # Car CRUD API with MongoDB
 
 This project is a RESTful API that allows users to perform CRUD (Create, Read, Update, Delete) operations on a car database using MongoDB. It's built with Node.js and Express, providing a simple interface for managing car information.
