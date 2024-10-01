@@ -34,7 +34,7 @@ This project is a RESTful API that allows users to perform CRUD (Create, Read, U
    
 2. Install dependencies:
    ```bash
-   cd car-crud-api
+   cd restful-crud-api
    npm install
    ```
 
@@ -70,8 +70,8 @@ The API will be running at `http://localhost:3000/`.
 {
   "make": "Toyota",
   "model": "Corolla",
-  "re_number": 2020,
-  "color": 20000
+  "re_number": "CL 23945",
+  "color": "Skyblue"
 }
 ```
 
